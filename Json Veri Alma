@@ -8,37 +8,40 @@
         <script src="https://unpkg.com/vue-resource@1.0.3/dist/vue-resource.min.js"></script>        
     </head>
     <body>
-        <div id="app">
+         <div id="app">
             <table border=1>
                 <thead>
                     <tr>
-                        <th>il</th>
-                        <th>iller</th>
+                        <th>id</th>
+                        <th>Veri</th>
                     </tr>
                 </thead>
-                <tr v-for="user in userList">
-                    <td>{{user.id}}</td>
-                    <td>{{user.name}}</td>
-                    <td>{{user.username}}</td>
-                    <td>{{user.email}}</td>
+                <tr v-for="rs in veri">
+                    <td>{{rs.id}}</td>
+                    <td>{{rs.cins}}</td>
                 </tr>
             </table>           
         </div>
+
         <script>
             var app = new Vue({
                 el: '#app',
                 data: {
-                    userList: []
+                    veri: []
                 },
                 mounted: function() {
-                    var root = 'https://jsonplaceholder.typicode.com/users';
-                    this.$http.get(root).then(function (resp) {
+                    var root = 'http://sanal-pazar.com/n2/mobile.php?sayfa=yukCins';
+                    this.$http.get(root).then(function (resp)
+                        {
                         if (resp.status == 200) {
-                            this.userList = resp.data;
+                            let parse = JSON.parse(resp.data);// parse edersen veriler geliyor duzgun sekilde
+                            console.log(parse);  
+                            this.veri = parse;
                         }
                     }); 
-                }            
+                }   
             });      
         </script>
+
     </body>
 </html>
